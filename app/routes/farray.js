@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   properties: null,
+  datax: null,
 
   init() {
     this.properties = Ember.A();
@@ -11,17 +12,14 @@ export default Ember.Route.extend({
   },
 
   model() {
-    // create a hash with key/value
-    let data = {};
+    this.datax = {};
 
     this.properties.forEach((x) => {
-      data[x.name] = x.value;
+      this.datax[x.name] = x.value;
     })
 
-    console.log(data);
-
     return {
-      data,
+      xyz: this.datax,
       properties: this.properties,
     };
   }

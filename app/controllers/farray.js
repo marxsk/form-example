@@ -7,10 +7,12 @@ export default Ember.Controller.extend({
     return this.filterString + this.filterString;
   }),
   onSubmit(changeset) {
-//    x.save();
-  console.log(changeset.change);
-    changeset.rollback();
+    console.log(changeset.get('change'));
+    // changeset.save();
   },
+  onReset(changeset) {
+    changeset.rollback();
+  }
   actions: {
     toggleAdvanced() {
       this.toggleProperty('showAdvanced');
