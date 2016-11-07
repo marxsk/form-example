@@ -1,0 +1,31 @@
+
+Filter: {{input type="text" value=filterString}}
+
+<button {{action 'toggleAdvanced'}}>Toggle</button>
+
+{{showAdvanced}}
+
+<hr />
+
+Form:
+{{#form-for (changeset model) submit=(action onSubmit) as |f|}}
+  {{#each model.properties as |prop| }}
+
+{{#if (and
+  (incl prop.title filterString)
+  (or (not-eq prop.level 'advanced') (and (eq prop.level 'advanced') (eq showAdvanced true)))
+  )
+}}
+    {{#fields-for prop as |fa|}}
+      {{#if (eq prop.type 'text')}}
+        {{fa.text-field 'value' label=prop.title placeholder=prop.defaultValue hint='aaaa'}}
+      {{/if}}
+      {{#if (eq prop.type 'select')}}
+        {{fa.select-field 'value' prop.options label=prop.title}}
+      {{/if}}
+    {{/fields-for}}
+{{/if}}
+  {{/each}}
+
+  {{f.submit "Create account"}}
+{{/form-for}}
